@@ -4,8 +4,12 @@ import { ClipboardList, Copy } from "lucide-react";
 import { mockBriefing } from "@/data/mock";
 
 export function BriefingNote() {
-  const handleCopy = () => {
-    navigator.clipboard.writeText(mockBriefing.content);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(mockBriefing.content);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
   };
 
   return (
