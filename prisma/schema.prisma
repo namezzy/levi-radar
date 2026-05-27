@@ -1,13 +1,247 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+// ─── Enums ──────────────────────────────────────────────
+
+enum UserRole {
+  admin
+  viewer
+}
+
+enum Platform {
+  wechat
+  feishu
+  telegram
+  manual_import
+}
+
+enum BriefingType {
+  daily
+  weekly
+  monthly
+}
+
+enum ActionStatus {
+  pending
+  done
+  ignored
+}
+
+enum IntegrationStatus {
+  active
+  inactive
+}
+
+enum SyncStatus {
+  pending
+  running
+  completed
+  failed
+}
+
+// ─── Models ─────────────────────────────────────────────
+
+model User {
+  id         String      @id @default(cuid())
+  name       String
+  email      String      @unique
+  avatar     String?
+  role       UserRole    @default(admin)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  workspaces Workspace[]
+}
+
+model Workspace {
+  id           String        @id @default(cuid())
+  name         String
+  description  String?
+  ownerId      String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  owner        User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  groups       Group[]
+  collections  Collection[]
+  tags         Tag[]
+  briefings    Briefing[]
+  integrations Integration[]
+  actionItems  ActionItem[]
+}
+
+model Collection {
+  id          String    @id @default(cuid())
+  name        String
+  color       String    @default("#06b6d4")
+  workspaceId String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  groups      Group[]
+}
+
+model Group {
+  id           String        @id @default(cuid())
+  name         String
+  platform     Platform
+  externalId   String?
+  avatar       String?
+  memberCount  Int           @default(0)
+  workspaceId  String
+  collectionId String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  collection   Collection?   @relation(fields: [collectionId], references: [id], onDelete: SetNull)
+  members      GroupMember[]
+  messages     Message[]
+}
+
+model GroupMember {
+  id         String    @id @default(cuid())
+  name       String
+  externalId String
+  platform   Platform
+  avatar     String?
+  role       String?
+  groupId    String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  group      Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  messages   Message[]
+
+  @@unique([groupId, externalId])
+}
+
+model Message {
+  id          String           @id @default(cuid())
+  content     String
+  senderId    String?
+  groupId     String
+  sentAt      DateTime
+  externalId  String?
+  messageType String           @default("text")
+  rawPayload  Json?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  group       Group            @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  sender      GroupMember?     @relation(fields: [senderId], references: [id], onDelete: SetNull)
+  analysis    MessageAnalysis?
+  links       Link[]
+  tags        MessageTag[]
+  actionItems ActionItem[]
+
+  @@index([groupId])
+  @@index([sentAt])
+  @@index([groupId, sentAt])
+}
+
+model MessageAnalysis {
+  id              String   @id @default(cuid())
+  messageId       String   @unique
+  summary         String?
+  category        String
+  importanceScore Int      @default(0)
+  actionScore     Int      @default(0)
+  businessScore   Int      @default(0)
+  isActionable    Boolean  @default(false)
+  isMentionMe     Boolean  @default(false)
+  reason          String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  message         Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@index([category])
+  @@index([importanceScore])
+}
+
+model Link {
+  id        String   @id @default(cuid())
+  url       String
+  title     String?
+  domain    String?
+  messageId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+}
+
+model Tag {
+  id          String       @id @default(cuid())
+  name        String
+  color       String       @default("#06b6d4")
+  workspaceId String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  workspace   Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  messages    MessageTag[]
+
+  @@unique([workspaceId, name])
+}
+
+model MessageTag {
+  messageId String
+  tagId     String
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([messageId, tagId])
+}
+
+model Briefing {
+  id          String       @id @default(cuid())
+  type        BriefingType
+  title       String
+  content     String       @db.Text
+  highlights  Json?
+  date        DateTime
+  workspaceId String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  workspace   Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model ActionItem {
+  id          String       @id @default(cuid())
+  title       String
+  description String?
+  status      ActionStatus @default(pending)
+  priority    Int          @default(0)
+  dueDate     DateTime?
+  messageId   String?
+  workspaceId String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  message     Message?     @relation(fields: [messageId], references: [id], onDelete: SetNull)
+  workspace   Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+}
+
+model Integration {
+  id          String            @id @default(cuid())
+  platform    Platform
+  name        String
+  config      Json?
+  status      IntegrationStatus @default(active)
+  workspaceId String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  workspace   Workspace         @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  syncJobs    SyncJob[]
+}
+
+model SyncJob {
+  id            String      @id @default(cuid())
+  integrationId String
+  status        SyncStatus  @default(pending)
+  startedAt     DateTime?
+  completedAt   DateTime?
+  messageCount  Int         @default(0)
+  errorLog      String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  integration   Integration @relation(fields: [integrationId], references: [id], onDelete: Cascade)
 }
