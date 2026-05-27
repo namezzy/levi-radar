@@ -70,6 +70,65 @@ npm run build
 npm start
 ```
 
+## 数据库设置
+
+### 前置条件
+
+- PostgreSQL 15+ 已安装并运行
+
+### 配置
+
+1. 复制环境变量文件：
+
+```bash
+cp .env.example .env
+```
+
+2. 编辑 `.env`，设置你的 PostgreSQL 连接串：
+
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/levi_radar?schema=public"
+```
+
+3. 创建数据库并运行迁移：
+
+```bash
+npx prisma db push
+```
+
+4. 填充测试数据：
+
+```bash
+npx prisma db seed
+```
+
+5. 查看数据（可选）：
+
+```bash
+npx prisma studio
+```
+
+### 数据模型
+
+系统包含 14 个核心数据模型：
+
+| 模型 | 说明 |
+|------|------|
+| User | 系统用户 |
+| Workspace | 工作区（配置容器） |
+| Group | 社群 |
+| GroupMember | 社群成员 |
+| Message | 消息 |
+| MessageAnalysis | AI 分析结果 |
+| Link | 提取链接 |
+| Tag | 标签 |
+| MessageTag | 消息-标签关系 |
+| Briefing | 每日/每周/每月简报 |
+| ActionItem | 行动项 |
+| Collection | 群组分类 |
+| Integration | 第三方集成 |
+| SyncJob | 同步任务 |
+
 ## 📁 项目结构
 
 ```
