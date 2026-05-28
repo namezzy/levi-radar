@@ -7,6 +7,7 @@ import {
   Star,
   FolderOpen,
   Settings,
+  Upload,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { mockNavItems, mockGroups, mockCollections } from "@/data/mock";
@@ -19,6 +20,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   ClipboardList,
   Star,
   FolderOpen,
+  Upload,
 };
 
 export function Sidebar() {
@@ -41,10 +43,11 @@ export function Sidebar() {
           {mockNavItems.map((item) => {
             const Icon = iconMap[item.icon];
             return (
-              <div
+              <a
                 key={item.id}
+                href={item.id === 'dashboard' ? '/' : item.id === 'import' ? '/import' : '#'}
                 className={cn(
-                  "flex items-center gap-2 px-2 py-[7px] rounded-md cursor-pointer transition-colors",
+                  "flex items-center gap-2 px-2 py-[7px] rounded-md cursor-pointer transition-colors no-underline",
                   item.active
                     ? "bg-primary/10"
                     : "hover:bg-white/5"
@@ -66,15 +69,17 @@ export function Sidebar() {
                 >
                   {item.label}
                 </span>
-                <span
-                  className={cn(
-                    "text-[9px] px-1.5 py-0.5 rounded font-semibold",
-                    item.badgeColor
-                  )}
-                >
-                  {item.badge}
-                </span>
-              </div>
+                {item.badge && (
+                  <span
+                    className={cn(
+                      "text-[9px] px-1.5 py-0.5 rounded font-semibold",
+                      item.badgeColor
+                    )}
+                  >
+                    {item.badge}
+                  </span>
+                )}
+              </a>
             );
           })}
         </nav>

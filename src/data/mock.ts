@@ -14,6 +14,7 @@ export const mockNavItems: NavItem[] = [
   { id: "signal", icon: "Radio", label: "信号流", badge: "Live", badgeColor: "bg-success text-[#060b14]" },
   { id: "topics", icon: "Radar", label: "话题雷达", badge: "Cross", badgeColor: "bg-[#8b5cf6] text-white" },
   { id: "links", icon: "Link", label: "链接情报", badge: "Link", badgeColor: "bg-[#3b82f6] text-white" },
+  { id: "import", icon: "Upload", label: "导入", badge: "New", badgeColor: "bg-[#f59e0b] text-[#060b14]" },
 ];
 
 export const mockGroups: GroupItem[] = [
