@@ -47,7 +47,7 @@ export function Header() {
         </div>
       </div>
       <div className="text-text-muted text-[11px]">
-        2026-05-24 ~ 2026-05-25 · 共 165 个群
+        2026-05-27 ~ 2026-05-28 · 共 165 个群
       </div>
     </header>
   );

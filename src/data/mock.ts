@@ -66,19 +66,19 @@ export const mockMetrics: MetricCard[] = [
 ];
 
 export const mockBriefing: BriefingNote = {
-  generatedAt: "2026-05-25 08:30",
+  generatedAt: "2026-05-28 08:30",
   content:
-    "必看：每日情报（2026-05-25, UTC+8）生成时间：2026-05-25 08:30；🔗 资源分享 1: [8天, 120美元] AI Agent 创业实战课程; 🎯 GPT-5 正式发布，多模态推理能力显著提升; 📡 Ethereum Pectra 升级后 Gas 费降低 40%，DeFi 生态迎来新机遇; 🛠 Figma AI 设计助手开放内测申请; 💡 Stripe 在东南亚开放本地支付渠道; 📊 Y Combinator 2026 夏季批次申请截止日期提前至 6 月 1 日...",
+    "必看：每日情报（2026-05-28, UTC+8）生成时间：2026-05-28 08:30；🔗 资源分享 1: Claude 4 Opus 发布，代码生成准确率提升 35%; 🎯 OpenAI 宣布 GPT-5 Turbo 降价 50%，API 调用成本大幅下降; 📡 Solana 新共识协议上线，TPS 突破 10 万; 🛠 Cursor 1.0 正式版发布，支持多文件上下文编辑; 💡 字节跳动海外支付平台进入东南亚五国; 📊 a16z 发布 2026 AI 基础设施投资报告...",
 };
 
 export const mockNotableIntel: NotableIntelItem[] = [
   {
     rank: 1,
-    title: "GPT-5 发布：多模态推理能力...",
-    linkCount: 12,
+    title: "Claude 4 Opus 发布：代码生成准确率提升 35%...",
+    linkCount: 18,
     source: "AI创业群",
     author: "Ben",
-    time: "17:36",
+    time: "09:36",
     tags: [
       { label: "工具/产品", bgColor: "#0e7490", textColor: "#cffafe" },
       { label: "链接信号", bgColor: "#065f46", textColor: "#a7f3d0" },
@@ -87,11 +87,11 @@ export const mockNotableIntel: NotableIntelItem[] = [
   },
   {
     rank: 2,
-    title: "Ethereum Pectra 升级分析...",
-    linkCount: 12,
-    source: "Web3研究组",
+    title: "OpenAI GPT-5 Turbo 降价 50%，开发者狂欢...",
+    linkCount: 15,
+    source: "独立开发者联盟",
     author: "Simonlin",
-    time: "10:37",
+    time: "08:42",
     tags: [
       { label: "工具/产品", bgColor: "#0e7490", textColor: "#cffafe" },
       { label: "链接信号", bgColor: "#065f46", textColor: "#a7f3d0" },
@@ -99,11 +99,11 @@ export const mockNotableIntel: NotableIntelItem[] = [
   },
   {
     rank: 3,
-    title: "AI Agent 框架选型指南 ✅...",
+    title: "Cursor 1.0 正式版体验报告 ✅...",
     linkCount: 12,
-    source: "独立开发者联盟",
+    source: "Vibe Coding群",
     author: "久路逊",
-    time: "09:56",
+    time: "10:15",
     tags: [
       { label: "机会/需求", bgColor: "#854d0e", textColor: "#fef08a" },
       { label: "工具/产品", bgColor: "#0e7490", textColor: "#cffafe" },
@@ -111,11 +111,11 @@ export const mockNotableIntel: NotableIntelItem[] = [
   },
   {
     rank: 4,
-    title: "通往AGI之路 知识库更新 🔗...",
-    linkCount: 12,
+    title: "a16z 2026 AI 基础设施投资报告解读 🔗...",
+    linkCount: 9,
     source: "AGI指南",
     author: "AGI指南",
-    time: "09:04",
+    time: "07:50",
     tags: [
       { label: "工具/产品", bgColor: "#0e7490", textColor: "#cffafe" },
       { label: "链接信号", bgColor: "#065f46", textColor: "#a7f3d0" },
@@ -124,11 +124,11 @@ export const mockNotableIntel: NotableIntelItem[] = [
   },
   {
     rank: 5,
-    title: "是搞 8G版本, 还是 64G版本呀...",
-    linkCount: 12,
+    title: "DeepSeek V3 开源版本地部署教程...",
+    linkCount: 7,
     source: "AI产品蜻蜓团",
     author: "YF9527",
-    time: "00:55",
+    time: "11:20",
     tags: [
       { label: "机会/需求", bgColor: "#854d0e", textColor: "#fef08a" },
       { label: "链接信号", bgColor: "#065f46", textColor: "#a7f3d0" },
@@ -140,41 +140,41 @@ export const mockActionItems: ActionItem[] = [
   {
     id: "a1",
     category: { label: "看报名/活动", bgColor: "#065f46", textColor: "#34d399" },
-    time: "09:56",
-    content: "🎯 AI Agent 创业实战课程 8 天速成班，120 美元",
+    time: "08:30",
+    content: "🎯 Claude 4 Opus 开发者内测申请通道已开放",
     source: "AI创业群",
     author: "久路逊",
   },
   {
     id: "a2",
     category: { label: "看买卖/团购", bgColor: "#7c2d12", textColor: "#fb923c" },
-    time: "01:30",
-    content: "安克充电宝团购价 ¥300，20 人以上成团",
-    source: "产品经理交流群",
+    time: "09:15",
+    content: "GPT-5 Turbo API 团购折扣，年付再享 8 折",
+    source: "独立开发者联盟",
     author: "YF9527",
   },
   {
     id: "a3",
     category: { label: "可回复推荐", bgColor: "#4338ca", textColor: "#a5b4fc" },
-    time: "16:50",
-    content: "求推荐 CLIProxyAPI 作者的联系方式",
-    source: "独立开发者联盟",
+    time: "10:20",
+    content: "求推荐 AI Agent 自动化运营方案，预算 10 万内",
+    source: "AI产品蜻蜓团",
     author: "老叶",
   },
   {
     id: "a4",
     category: { label: "看报名/活动", bgColor: "#065f46", textColor: "#34d399" },
-    time: "09:35",
-    content: "【活动报名】硬件开发者看过来",
-    source: "AGI Bar Friends 3群",
+    time: "07:50",
+    content: "【线上直播】a16z 合伙人解读 2026 AI 投资趋势",
+    source: "AGI指南",
     author: "南乔River",
   },
   {
     id: "a5",
     category: { label: "看报名/活动", bgColor: "#065f46", textColor: "#34d399" },
-    time: "19:41",
-    content: "需要双语互相翻译的实时会议软件",
-    source: "ShowMeAI",
+    time: "11:05",
+    content: "Cursor 1.0 发布会回放 + 新功能上手教程",
+    source: "Vibe Coding群",
     author: "南乔River",
   },
 ];
