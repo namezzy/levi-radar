@@ -180,10 +180,10 @@ export const mockActionItems: ActionItem[] = [
 ];
 
 export const mockIntelSources: IntelSource[] = [
-  { rank: 1, name: "南乔River", description: "🔺前发AI团 🔺ShowMeAI", signalCount: 5, groupCount: 2 },
-  { rank: 2, name: "Deathhush", description: "481702@chatroom · 工具/...", signalCount: 5, groupCount: 1 },
-  { rank: 3, name: "火星人", description: "7-TGO和朋友们的AGI", signalCount: 4, groupCount: 1 },
-  { rank: 4, name: "千寻", description: "Simonlin学术交流", signalCount: 4, groupCount: 1 },
-  { rank: 5, name: "李华荣", description: "Vibe Coding 编程群", signalCount: 4, groupCount: 1 },
-  { rank: 6, name: "BU红薯", description: "智能体成精了🌸 Life Hacker", signalCount: 3, groupCount: 1 },
+  { rank: 1, name: "OpenAI", description: "GPT-4o · 多模态分析引擎", signalCount: 128, groupCount: 12 },
+  { rank: 2, name: "DeepSeek", description: "DeepSeek-V3 · 中文语义理解", signalCount: 96, groupCount: 10 },
+  { rank: 3, name: "Anthropic", description: "Claude 4 · 长文本推理", signalCount: 87, groupCount: 8 },
+  { rank: 4, name: "Google Gemini", description: "Gemini 2.5 Pro · 跨模态情报", signalCount: 64, groupCount: 7 },
+  { rank: 5, name: "Microsoft Copilot", description: "GPT-4o + Bing · 实时搜索增强", signalCount: 52, groupCount: 6 },
+  { rank: 6, name: "Kimi (月之暗面)", description: "Moonshot-v1 · 超长上下文", signalCount: 41, groupCount: 5 },
 ];
